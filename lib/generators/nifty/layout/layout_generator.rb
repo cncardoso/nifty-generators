@@ -9,6 +9,9 @@ module Nifty
       class_option :saas, :desc => 'Generate SASS for stylesheet.', :type => :boolean
 
       def create_layout
+        
+        options.saas = true if options.haml?
+          
         if options.haml?
           template 'layout.html.haml', "app/views/layouts/#{file_name}.html.haml"
         else
@@ -31,11 +34,7 @@ module Nifty
 
       # don't overwrite manifest file application.css if using css
       def stylesheet_name
-        if file_name == 'application' && !options.haml?
-          'application-wide'
-        else
-          file_name
-        end
+        file_name == 'application' && !(options.saas? || options.haml?) ? 'application-wide' : file_name
       end
     end
   end
