@@ -15,7 +15,7 @@ module Nifty
           template 'layout.html.erb', "app/views/layouts/#{file_name}.html.erb"
         end
         if options.saas? || options.haml?
-          copy_file 'stylesheet.sass', "app/assets/stylesheets/#{stylesheet_name}.css.sass"
+          copy_file 'stylesheet.scss', "app/assets/stylesheets/#{stylesheet_name}.css.scss"
         else
           copy_file 'stylesheet.css', "app/assets/stylesheets/#{stylesheet_name}.css"
         end
@@ -29,9 +29,13 @@ module Nifty
         layout_name.underscore
       end
 
-      # don't overwrite manifest file application.css
+      # don't overwrite manifest file application.css if using css
       def stylesheet_name
-        file_name == 'application' ? 'application-wide' : file_name
+        if file_name == 'application' && !options.haml?
+          'application-wide'
+        else
+          file_name
+        end
       end
     end
   end
