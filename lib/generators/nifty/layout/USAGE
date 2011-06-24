@@ -14,7 +14,7 @@ Examples:
     rails generate nifty:layout
 
         Layout:     app/views/layouts/application.html.erb
-        Stylesheet: public/stylesheets/application.css
+        Stylesheet: app/assets/stylesheets/application-wide.css
         Helper:     app/helpers/layout_helper.rb
 
 
